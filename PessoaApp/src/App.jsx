@@ -1,4 +1,5 @@
 import './App.css'
+import Contador from './componentes/Contador/Contador'
 import Imc from './componentes/IMC/Imc'
 import Pessoa from './componentes/Pessoa/Pessoa'
 
@@ -7,6 +8,8 @@ function App() {
 
   return (
     <>
+
+    <Contador inferior={-10} superior={15} />
 
     <Imc titulo="Calculadora de IMC"/>
 
