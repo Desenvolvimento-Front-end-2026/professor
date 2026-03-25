@@ -1,7 +1,47 @@
+.card{
+    background: #333;
+    color: white;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #ff0000;
+    box-shadow: 6px 6px 6px rgba(0,0,0,0.8);
+}
+
 .cardTitulo{
-    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    background: #444;
+    font-weight: bold;
 }
 
 .cardCorpo{
-    background-color: #cfcece;
+    padding: 15px;
+    background: #eee;
+    color: #000;
+}
+
+.arrow {
+    cursor: pointer;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.arrowOpen {
+    transform: rotate(180deg);
+}
+
+
+.cardCorpoOpen {
+    max-height: 0;
+    opacity: 0;
+    padding: 0 15px;
+}
+
+.cardCorpoClose {
+    max-height: 200px;
+    opacity: 1;
+    padding: 15px;
 }
