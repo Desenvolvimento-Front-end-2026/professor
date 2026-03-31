@@ -7,6 +7,10 @@ import Card from './Componentes/Card/Card'
 import MensagemSimples from './Desafios/Desafio01/MensagemSimples'
 import SituacaoAluno from './Desafios/Desafio02/SituacaoAluno'
 import Aleatorio from './Desafios/Desafio03/Aleatorio'
+import ListaAlunos from './Desafios/Desafio05/ListaAlunos'
+import Familia from './Desafios/Desafio06/Familia'
+import FamiliaMembro from './Desafios/Desafio06/FamiliaMembro'
+import ParImpar from './Desafios/Desafio07/ParImpar'
 
 
 createRoot(document.getElementById('root')).render(
@@ -28,6 +32,24 @@ createRoot(document.getElementById('root')).render(
 
       <Card titulo="Desafio 03 - Cálculo Aleatório">
         <Aleatorio min={50} max={60} />
+      </Card>
+
+      <Card titulo="Desafio 05 - Lista de Alunos - Repetição">
+        <ListaAlunos />
+      </Card>
+
+
+      <Card titulo="Desafio 06 - Filhos - passagem de conteúdo">
+        <Familia sobrenome="Martins" >
+          <FamiliaMembro nome="Zezin" />
+          <FamiliaMembro nome="Pedrin" />
+          <FamiliaMembro nome="Bia" />
+        </Familia>
+      </Card>
+
+
+      <Card titulo="Desafio 07 - Condicionais">
+        <ParImpar numero={58} usuario={{nome: "zezin", idade: 18}} />
       </Card>
 
     </Portifolio>
