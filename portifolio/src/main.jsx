@@ -11,6 +11,7 @@ import ListaAlunos from './Desafios/Desafio05/ListaAlunos'
 import Familia from './Desafios/Desafio06/Familia'
 import FamiliaMembro from './Desafios/Desafio06/FamiliaMembro'
 import ParImpar from './Desafios/Desafio07/ParImpar'
+import Pesquisa from './Desafios/Desafio08/Pesquisa'
 
 
 createRoot(document.getElementById('root')).render(
@@ -53,8 +54,11 @@ createRoot(document.getElementById('root')).render(
         <ParImpar numero={55} usuario={{nome: "pedrin", idade: 15}} />
       </Card>
 
-    </Portifolio>
+      <Card titulo="Desafio 08 - Comunicação Indireta - UseState">
+        <Pesquisa titulo="Pesquisa de Produtos" />
+      </Card>
 
+    </Portifolio>
 
   </StrictMode>,
 )
