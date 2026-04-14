@@ -17,8 +17,15 @@ const LoginPage = () =>{
         if ( login === "admin" && senha === "123"){
             //setMsg("Ok acertrou")
             localStorage.setItem("logado", "true")
+            localStorage.setItem("nome", "Pedrin Admin")
+            localStorage.setItem("ROLE", "ADMIN")
             navigate("/")
-        }else{
+        }else if ( login === "user" && senha === "123"){
+            localStorage.setItem("logado", "true")
+            localStorage.setItem("nome", "Zezin da Silva")
+            localStorage.setItem("ROLE", "USER")
+            navigate("/")
+        }else {
             setLogin("")
             setSenha("")
             setMsg("Login ou senha incorretos")

@@ -12,6 +12,7 @@ const MenuTopo = () =>{
     // }, [])
 
     const logado = localStorage.getItem("logado") === "true"
+    const role = localStorage.getItem("ROLE")
 
     
 
@@ -20,6 +21,8 @@ const MenuTopo = () =>{
     }
     const callSair = () =>{
         localStorage.removeItem("logado")
+        localStorage.removeItem("nome")
+        localStorage.removeItem("ROLE")
         navigate("/login")
     }
 
@@ -32,8 +35,17 @@ const MenuTopo = () =>{
                     <li><NavLink to="/login">Login</NavLink></li> 
                  }
                 <li><a onClick={callSobre}>Sobre</a></li>
+
+                { (logado === true && role === "ADMIN") && 
+                 <li><NavLink to="/admin">Admin</NavLink></li>
+                }
+
+                { (logado === true && role === "USER") && 
+                 <li><NavLink to="/config">Configurações</NavLink></li>
+                }            
+
                 { logado === true &&                     
-                    <li><a>DashBoard</a></li>
+                    <li><NavLink to="/dash">DashBoard</NavLink></li>
                  }
                 { logado === true &&          
                     <li><a onClick={callSair}>Sair</a></li>
