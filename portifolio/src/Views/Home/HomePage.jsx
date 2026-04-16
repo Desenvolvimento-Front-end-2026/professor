@@ -1,4 +1,5 @@
 import Card from "../../Componentes/Card/Card"
+import { UserAuth } from "../../Componentes/Context/UserContext"
 import Portifolio from "../../Componentes/Portifolio/Portifolio"
 import MensagemSimples from "../../Desafios/Desafio01/MensagemSimples"
 import SituacaoAluno from "../../Desafios/Desafio02/SituacaoAluno"
@@ -14,9 +15,10 @@ import Menu from "../../Desafios/Desafio10/Menu"
 
 const HomePage = () =>{
 
+  const {versao} = UserAuth()
 
     return(
-        <Portifolio titulo="Conceitos de React">
+        <Portifolio titulo={"Conceitos de React "+ versao} >
       
       <Card titulo="Desafio 01 - Passagem de paramêtro" >
         

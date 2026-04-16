@@ -1,6 +1,7 @@
 import { NavLink, useNavigate } from "react-router"
 import "./MenuTopo.css"
 import { useEffect, useState } from "react"
+import { UserAuth } from "../Context/UserContext"
 
 const MenuTopo = () =>{
 
@@ -11,18 +12,19 @@ const MenuTopo = () =>{
     //     setLogado( localStorage.getItem("logado") === "true" )
     // }, [])
 
-    const logado = localStorage.getItem("logado") === "true"
-    const role = localStorage.getItem("ROLE")
+    // const logado = localStorage.getItem("logado") === "true"
+    // const role = localStorage.getItem("ROLE")
 
-    
+    const {userLogado, logout} = UserAuth()    
 
     const callSobre = () =>{
         navigate("/sobre")
     }
     const callSair = () =>{
-        localStorage.removeItem("logado")
-        localStorage.removeItem("nome")
-        localStorage.removeItem("ROLE")
+        // localStorage.removeItem("logado")
+        // localStorage.removeItem("nome")
+        // localStorage.removeItem("ROLE")
+        logout()
         navigate("/login")
     }
 
@@ -31,23 +33,23 @@ const MenuTopo = () =>{
 
             <ul>
                 <li><NavLink to="/">Portifolio</NavLink></li>
-                 { logado === false && 
+                 { !userLogado && 
                     <li><NavLink to="/login">Login</NavLink></li> 
                  }
                 <li><a onClick={callSobre}>Sobre</a></li>
 
-                { (logado === true && role === "ADMIN") && 
+                { ( userLogado && userLogado.role === "ADMIN") && 
                  <li><NavLink to="/admin">Admin</NavLink></li>
                 }
 
-                { (logado === true && role === "USER") && 
+                { ( userLogado && userLogado.role === "USER") && 
                  <li><NavLink to="/config">Configurações</NavLink></li>
                 }            
 
-                { logado === true &&                     
+                { userLogado &&                     
                     <li><NavLink to="/dash">DashBoard</NavLink></li>
                  }
-                { logado === true &&          
+                { userLogado &&          
                     <li><a onClick={callSair}>Sair</a></li>
                  }
             </ul>
