@@ -11,6 +11,7 @@ import ParImpar from "../../Desafios/Desafio07/ParImpar"
 import Pesquisa from "../../Desafios/Desafio08/Pesquisa"
 import Effect from "../../Desafios/Desafio09/Effect"
 import Menu from "../../Desafios/Desafio10/Menu"
+import BuscaCep from "../../Desafios/Desafio11/BuscaCep"
 
 
 const HomePage = () =>{
@@ -66,6 +67,10 @@ const HomePage = () =>{
 
       <Card titulo="Desafio 10 - Menu">
         <Menu />
+      </Card>
+
+      <Card titulo="Desafio 11 - Consumo de API - Busca CEP">
+        <BuscaCep />
       </Card>
 
     </Portifolio>

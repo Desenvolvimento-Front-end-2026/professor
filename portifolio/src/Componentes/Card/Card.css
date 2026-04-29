@@ -41,7 +41,7 @@
 }
 
 .cardCorpoClose {
-    max-height: 200px;
+    /* max-height: 200px; */
     opacity: 1;
     padding: 15px;
 }

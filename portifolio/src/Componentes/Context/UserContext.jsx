@@ -37,6 +37,7 @@ const decryptData = (encodedText) => {
         {nome: "Zezin da Silva", login: "ze", senha: "123", role:"USER"},
         {nome: "Pedrin Augusto", login: "ped", senha: "123", role:"USER"},
         {nome: "Gustin Carrara", login: "gugu", senha: "123", role:"ADMIN"},
+        {nome: "Admin", login: "aa", senha: "abc", role:"ADMIN"},
     ]
 ''
     const [userLogado, setUserLogado] = useState(()=>{
