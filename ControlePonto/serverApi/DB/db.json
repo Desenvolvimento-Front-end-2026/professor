@@ -3,32 +3,43 @@
     {
       "id": "1",
       "nome": "Zezin da Silva",
+      "login": "ze",
+      "senha": "123",
+      "ROLE": "ADMIN",
       "horaEntrada": "12:00",
-      "horaSaida": "22:00"
+      "horaSaida": "22:00",
+      "cargo": "IygWzWL6tQg"
     },
     {
       "matricula": 2019220010,
       "nome": "PEdrin Maria",
+      "login": "pe",
+      "senha": "123",
+      "ROLE": "FUNCIONARIO",
       "horaEntrada": "12:00",
       "horaSaida": "22:00",
-      "id": "2"
+      "id": "2",
+      "cargo": "cVTJKXhkQAs"
     },
     {
       "id": "5sVtdCQ0nWM",
       "nome": "Jefin Perreira",
+      "login": "je",
+      "senha": "123",
+      "ROLE": "FUNCIONARIO",
       "horaEntrada": "12:00",
       "horaSaida": "22:00",
       "cargo": "LVa3lW7Gcgw"
     },
     {
       "id": "WiVH4-RmNN4",
-      "nome": "Jefin Perreira",
+      "nome": "Marquin Perreira",
+      "login": "ma",
+      "senha": "123",
+      "ROLE": "FUNCIONARIO",
       "horaEntrada": "12:00",
       "horaSaida": "22:00",
-      "cargo": {
-        "id": "LVa3lW7Gcgw",
-        "nome": "Desenvolvedor"
-      }
+      "cargo": "LVa3lW7Gcgw"
     }
   ],
   "cargo": [
@@ -65,7 +76,14 @@
       "id": "cVTJKXhkQAs"
     }
   ],
-  "ponto": [],
+  "ponto": [
+    {
+      "idUser": "1",
+      "dataEntrada": "2026-05-12T01:18:03.209Z",
+      "dataSaida": null,
+      "id": "l8M5tDCNuUU"
+    }
+  ],
   "justificativa": [],
   "$schema": "./node_modules/json-server/schema.json"
 }

@@ -11,14 +11,14 @@ import {
     Link,
     Grid
 } from '@mui/material';
+import { registraPonto } from '../Service/PontoService';
+import { UserAuth } from '../components/Context/UserContext';
 
 const Registro = () => {
     const navigate = useNavigate();
     
-    const [nome, setNome] = useState('');
-    const [loginStr, setLoginStr] = useState('');
-    const [senha, setSenha] = useState('');
-    const [confirmarSenha, setConfirmarSenha] = useState('');
+    const {userLogado} = UserAuth()
+
     const [loading, setLoading] = useState(false);
     const [erro, setErro] = useState('');
 
@@ -26,20 +26,11 @@ const Registro = () => {
         e.preventDefault();
         setLoading(true);
         setErro('');
-        
-        if (senha !== confirmarSenha) {
-            setErro('As senhas não coincidem');
-            setLoading(false);
-            return;
-        }
 
-        // Simular um tempo de resposta da API
-        setTimeout(() => {
-            // Em uma aplicação real, faríamos a chamada para a API aqui.
-            // Para nosso caso, simularemos sucesso redirecionando para login.
-            navigate('/login');
-            setLoading(false);
-        }, 1500);
+        registraPonto( userLogado.id, userLogado.token)
+
+        navigate('/')        
+        
     }
 
     return (
@@ -54,11 +45,11 @@ const Registro = () => {
             >
                 <Paper elevation={6} sx={{ p: 4, width: '100%', borderRadius: 3 }}>
                     <Typography component="h1" variant="h5" align="center" fontWeight="bold" color="primary" gutterBottom>
-                        Criar Nova Conta
+                        Registrar Ponto
                     </Typography>
                     
                     <Box component="form" onSubmit={handleRegistro} sx={{ mt: 3 }}>
-                        <Grid container spacing={2}>
+                        {/* <Grid container spacing={2}>
                             <Grid item xs={12}>
                                 <TextField
                                     required
@@ -111,7 +102,7 @@ const Registro = () => {
                                     disabled={loading}
                                 />
                             </Grid>
-                        </Grid>
+                        </Grid> */}
 
                         {erro && (
                             <Typography color="error" variant="body2" align="center" sx={{ mt: 2 }}>
@@ -125,17 +116,16 @@ const Registro = () => {
                             variant="contained"
                             sx={{ mt: 3, mb: 2, py: 1.5 }}
                             disabled={loading}
+                            onClick={handleRegistro}
                         >
-                            {loading ? <CircularProgress size={24} color="inherit" /> : 'Registrar'}
+                            {loading ? <CircularProgress size={24} color="inherit" /> : 'Registrar Entrada'}
                         </Button>
                         
                         <Grid container justifyContent="flex-end">
                             <Grid item>
                                 <Typography variant="body2">
-                                    Já possui uma conta?{' '}
-                                    <Link component="button" variant="body2" onClick={() => navigate('/login')}>
-                                        Faça Login
-                                    </Link>
+                                    você entrou as 12:00h até o momento tem 4h trabalhadas
+                                    
                                 </Typography>
                             </Grid>
                         </Grid>

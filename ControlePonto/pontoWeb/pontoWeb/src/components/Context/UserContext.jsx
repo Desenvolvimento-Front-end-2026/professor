@@ -1,4 +1,6 @@
 import { createContext, useContext, useState } from "react";
+import { verifyLoginAndSenha } from "../../Service/FuncionarioService";
+import { getCargo } from "../../Service/CargoService";
 
 
 const AuthContext = createContext();
@@ -33,32 +35,20 @@ const decryptData = (encodedText) => {
     }
 }
 
-    let userList = [
-        {nome: "Zezin da Silva", login: "ze", senha: "123", role:"USER"},
-        {nome: "Pedrin Augusto", login: "ped", senha: "123", role:"USER"},
-        {nome: "Gustin Carrara", login: "gugu", senha: "123", role:"ADMIN"},
-        {nome: "Admin", login: "aa", senha: "abc", role:"ADMIN"},
-    ]
-''
-    const [userLogado, setUserLogado] = useState(()=>{
-         const login = decryptData(localStorage.getItem("logado")) 
-        console.log("logado :: ",login, localStorage.getItem("logado"))
-        if (!login){
-            return null
-        }else{
-            return userList.filter( u => u.login === login)[0]
-        }
-    });
+
+    const [userLogado, setUserLogado] = useState(null);
+    const [cargoUser, setCargoUser] = useState(null);
     const versao = "1.0.0"
 
-    const login = (login, senha) =>{
-        const user = userList.filter( u => u.login === login && u.senha === senha) 
+    const login = async (login, senha) =>{
+        const user = await verifyLoginAndSenha(login, senha)
+        console.log("usuário Logado :: ",user)
 
-        //console.log("Login::",user)
-        if (user.length > 0){
+        if (user != null){
             // localStorage.setItem("logado", JSON.stringify(user[0]) )
-            localStorage.setItem("logado",  encryptData(user[0].login)  )
-            setUserLogado(user[0])
+            setCargoUser ( await getCargo( user.cargo ) )
+            localStorage.setItem("logado",  encryptData(user.login)  )
+            setUserLogado(user)
         }else{
             setUserLogado(null)
         }
@@ -68,7 +58,7 @@ const decryptData = (encodedText) => {
         setUserLogado(null)
     }
 
-    return <AuthContext.Provider value={{versao, userLogado, login, logout}}>
+    return <AuthContext.Provider value={{versao, userLogado, login, logout, cargoUser}}>
         {children}
     </AuthContext.Provider>
 

@@ -7,17 +7,24 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 import { getFuncionariosSize } from "../Service/FuncionarioService";
+import { getCargoSize } from "../Service/CargoService";
+import { UserAuth } from "../components/Context/UserContext";
 
 
 const DashBoard = () => {
 
     const [funcSize, setFuncSize] = useState(0)
+    const [cargoSize, setCargoSize] = useState(0)
+
+    const {userLogado, cargoUser} = UserAuth()
 
     useEffect(()=>{
         const fetchFunc = async () => {
             const v = await getFuncionariosSize() 
-            console.log("Valor do getFuncionariosSize :: ",v)
+            //console.log("Valor do getFuncionariosSize :: ",v)
             setFuncSize( v )
+            const c = await getCargoSize()
+            setCargoSize( c )
         }
         fetchFunc()
     },[])
@@ -30,6 +37,9 @@ const DashBoard = () => {
                     
                     <MenuBar />
 
+                {userLogado == null &&
+                    <>
+                    
                     <Grid size={4} style={{padding: '20px'}} >
                         
                         <Card elevation={4} sx={{ borderRadius: 3, background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)', color: 'white' }}>
@@ -70,7 +80,7 @@ const DashBoard = () => {
                         <CardActionArea sx={{ height: '150px' }}>
                             <CardContent sx={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                             <Typography variant="h3" component="div" fontWeight="bold">
-                                18
+                                {cargoSize}
                             </Typography>
                             <Typography variant="h6" sx={{ opacity: 0.9 }}>
                                 Cargos
@@ -80,6 +90,49 @@ const DashBoard = () => {
                     </Card>
 
                     </Grid>
+                    </>                
+                }
+
+                 {userLogado &&
+<>
+
+                   <Grid size={4} style={{padding: '20px'}} >
+                        
+                        <Card elevation={4} sx={{ borderRadius: 3, background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)', color: 'white' }}>
+                        <CardActionArea sx={{ height: '150px' }}>
+                            <CardContent sx={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                            <Typography variant="h5" component="div" fontWeight="bold">
+                                {cargoUser}
+                            </Typography>
+                            <Typography variant="h6" sx={{ opacity: 0.9 }}>
+                                CARGO
+                            </Typography>
+                            </CardContent>
+                        </CardActionArea>
+                    </Card> 
+
+                    </Grid>
+
+                    <Grid size={4} style={{padding: '20px'}} >
+                        
+                        <Card elevation={4} sx={{ borderRadius: 3, background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)', color: 'white' }}>
+                        <CardActionArea sx={{ height: '150px' }}>
+                            <CardContent sx={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                            <Typography variant="h5" component="div" fontWeight="bold">
+                                {userLogado.ROLE}
+                            </Typography>
+                            <Typography variant="h6" sx={{ opacity: 0.9 }}>
+                                TIPO USUÁRIO
+                            </Typography>
+                            </CardContent>
+                        </CardActionArea>
+                    </Card>
+
+                    </Grid>
+</>
+
+                    }
+
 
                 </Grid>
         </Box>
