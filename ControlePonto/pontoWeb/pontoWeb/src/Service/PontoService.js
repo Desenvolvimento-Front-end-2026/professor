@@ -31,5 +31,86 @@ const registraPonto = async (idUser, token) => {
     }
 }
 
+const temResgistroAberto = async (idUser, token) => {
 
-export {registraPonto}
+
+    const resp = await fetch(URL, {method: 'GET',
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+token
+            }
+    })
+    const registros = await resp.json()
+
+    const userRegistro = registros.filter( reg => reg.idUser === idUser && reg.dataSaida === null)
+
+    return userRegistro.length == 0 ? null : userRegistro[0]
+
+}
+
+
+const fechaPonto = async (idRegistro, token) => {
+    try {
+        const dataAtual = new Date()
+        
+
+        const resp = await fetch(`${URL}/${idRegistro}`,{ method: 'PATCH',
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+token
+            },
+            body:JSON.stringify({
+                "dataSaida": dataAtual.toISOString()
+            }) 
+        })
+
+        return true
+    } catch (e) {
+        return false
+    }
+}
+
+
+const totalDiasTrabalhados = async (idUser, token) => {
+
+
+    const resp = await fetch(URL, {method: 'GET',
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+token
+            }
+    })
+    const registros = await resp.json()
+
+    const userRegistro = registros.filter( reg => reg.idUser === idUser && reg.dataSaida != null)
+
+    return userRegistro.length
+
+}
+
+const totalHorasTrabalhadas = async (idUser, token) => {
+
+
+    const resp = await fetch(URL, {method: 'GET',
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+token
+            }
+    })
+    const registros = await resp.json()
+
+    const userRegistro = registros.filter( reg => reg.idUser === idUser && reg.dataSaida != null)
+
+    let totalHoras = 0
+    userRegistro.forEach( reg =>{
+        totalHoras += (new Date(reg.dataSaida) - new Date(reg.dataEntrada)) / (1000*60)
+        console.log("Horas :: ", totalHoras, "Entrada :: ",reg.dataEntrada, "Saida :: ", reg.dataSaida)
+
+    })
+
+    return totalHoras
+
+}
+
+export {registraPonto, temResgistroAberto, 
+    fechaPonto, totalDiasTrabalhados, totalHorasTrabalhadas}

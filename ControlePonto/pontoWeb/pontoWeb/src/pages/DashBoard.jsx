@@ -9,12 +9,15 @@ import { useEffect, useState } from "react";
 import { getFuncionariosSize } from "../Service/FuncionarioService";
 import { getCargoSize } from "../Service/CargoService";
 import { UserAuth } from "../components/Context/UserContext";
+import { totalDiasTrabalhados, totalHorasTrabalhadas } from "../Service/PontoService";
 
 
 const DashBoard = () => {
 
     const [funcSize, setFuncSize] = useState(0)
     const [cargoSize, setCargoSize] = useState(0)
+    const [totalDias, setTotalDias] = useState(0)
+    const [totalHoras, setTotalHoras] = useState(0)
 
     const {userLogado, cargoUser} = UserAuth()
 
@@ -25,9 +28,13 @@ const DashBoard = () => {
             setFuncSize( v )
             const c = await getCargoSize()
             setCargoSize( c )
+            const t = await totalDiasTrabalhados(userLogado.id, userLogado.token)
+            setTotalDias( t )
+            const h = await totalHorasTrabalhadas(userLogado.id, userLogado.token)
+            setTotalHoras( h )
         }
         fetchFunc()
-    },[])
+    })
 
 
     return(
@@ -129,7 +136,44 @@ const DashBoard = () => {
                     </Card>
 
                     </Grid>
+
+
+                    <Grid size={4} style={{padding: '20px'}} >
+                        
+                        <Card elevation={4} sx={{ borderRadius: 3, background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)', color: 'white' }}>
+                        <CardActionArea sx={{ height: '150px' }}>
+                            <CardContent sx={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                            <Typography variant="h5" component="div" fontWeight="bold">
+                                {totalDias}
+                            </Typography>
+                            <Typography variant="h6" sx={{ opacity: 0.9 }}>
+                                Dias Trabalhados
+                            </Typography>
+                            </CardContent>
+                        </CardActionArea>
+                    </Card>
+
+                    </Grid>
+
+                    <Grid size={4} style={{padding: '20px'}} >
+                        
+                        <Card elevation={4} sx={{ borderRadius: 3, background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)', color: 'white' }}>
+                        <CardActionArea sx={{ height: '150px' }}>
+                            <CardContent sx={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                            <Typography variant="h5" component="div" fontWeight="bold">
+                                {totalHoras.toFixed(2)} minutos
+                            </Typography>
+                            <Typography variant="h6" sx={{ opacity: 0.9 }}>
+                                Horas Trabalhadas
+                            </Typography>
+                            </CardContent>
+                        </CardActionArea>
+                    </Card>
+
+                    </Grid>
+
 </>
+
 
                     }
 

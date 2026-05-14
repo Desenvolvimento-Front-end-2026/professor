@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
     Box, 
@@ -11,7 +11,7 @@ import {
     Link,
     Grid
 } from '@mui/material';
-import { registraPonto } from '../Service/PontoService';
+import { fechaPonto, registraPonto, temResgistroAberto } from '../Service/PontoService';
 import { UserAuth } from '../components/Context/UserContext';
 
 const Registro = () => {
@@ -19,15 +19,38 @@ const Registro = () => {
     
     const {userLogado} = UserAuth()
 
+    const [entrada, setEntrada] = useState(true);
     const [loading, setLoading] = useState(false);
     const [erro, setErro] = useState('');
+    const [registro, setRegistro] = useState(null);
+
+    useEffect(() => {
+         const check = async () =>{
+            const reg = await temResgistroAberto(userLogado.id, userLogado.token)
+            //console.log(reg)
+            setRegistro(reg)
+
+            if (reg != null){
+                setEntrada(false)
+            }else{
+                setEntrada(true)
+            }
+
+         }
+         check()
+
+    }, [])
 
     const handleRegistro = (e) => {
         e.preventDefault();
         setLoading(true);
         setErro('');
 
-        registraPonto( userLogado.id, userLogado.token)
+        if (entrada){
+            registraPonto( userLogado.id, userLogado.token)
+        }else{
+            fechaPonto( registro.id, userLogado.token)
+        }
 
         navigate('/')        
         
@@ -45,7 +68,7 @@ const Registro = () => {
             >
                 <Paper elevation={6} sx={{ p: 4, width: '100%', borderRadius: 3 }}>
                     <Typography component="h1" variant="h5" align="center" fontWeight="bold" color="primary" gutterBottom>
-                        Registrar Ponto
+                       { entrada ? "Registrar Entrada" : "Registrar Saída" }
                     </Typography>
                     
                     <Box component="form" onSubmit={handleRegistro} sx={{ mt: 3 }}>
@@ -118,13 +141,16 @@ const Registro = () => {
                             disabled={loading}
                             onClick={handleRegistro}
                         >
-                            {loading ? <CircularProgress size={24} color="inherit" /> : 'Registrar Entrada'}
+                            {loading ? <CircularProgress size={24} color="inherit" /> : ( entrada ? "Registrar Entrada" : "Registrar Saída" )}
                         </Button>
                         
                         <Grid container justifyContent="flex-end">
                             <Grid item>
                                 <Typography variant="body2">
-                                    você entrou as 12:00h até o momento tem 4h trabalhadas
+                                    { registro &&
+                                     <span>Entrada: {registro.dataEntrada}</span>
+                                    }
+                                    
                                     
                                 </Typography>
                             </Grid>
