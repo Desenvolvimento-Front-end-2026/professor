@@ -114,6 +114,16 @@
       "id": "_tXrdw69h2g"
     }
   ],
-  "justificativa": [],
+  "justificativa": [
+    
+    {
+      "idUser": "1",
+      "dataEntrada": "2026-11-05T10:00:00.000Z",
+      "dataSaida": "2026-11-05T15:00:00.000Z",
+      "motivo": "dfsdf sdfsd fsdf sdf",
+      "status": "AGUARDANDO",
+      "id": "--ZROUkMZwU"
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }

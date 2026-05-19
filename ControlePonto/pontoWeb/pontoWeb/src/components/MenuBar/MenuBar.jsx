@@ -33,6 +33,10 @@ const MenuBar = () => {
                         
                         {userLogado ? (
                             <>
+                            <Button color="inherit" onClick={() => navigate('/justificativa')} sx={{ fontWeight: 'bold', fontSize: '1rem' }}>
+                            Justificativa
+                            </Button>
+
                             <Button color="inherit" onClick={() => navigate('/registro')} sx={{ fontWeight: 'bold', fontSize: '1rem' }}>
                             Registro
                             </Button>
