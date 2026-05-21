@@ -112,17 +112,46 @@
       "dataEntrada": "2026-05-14T00:52:56.182Z",
       "dataSaida": "2026-05-14T00:53:01.860Z",
       "id": "_tXrdw69h2g"
+    },
+    {
+      "idUser": "1",
+      "dataEntrada": "2026-11-05T10:00:00.000Z",
+      "dataSaida": "2026-11-05T15:00:00.000Z",
+      "id": "36Dc73o84nI"
     }
   ],
   "justificativa": [
-    
     {
       "idUser": "1",
       "dataEntrada": "2026-11-05T10:00:00.000Z",
       "dataSaida": "2026-11-05T15:00:00.000Z",
       "motivo": "dfsdf sdfsd fsdf sdf",
-      "status": "AGUARDANDO",
+      "status": "APROVADO",
       "id": "--ZROUkMZwU"
+    },
+    {
+      "idUser": "2",
+      "dataEntrada": "2026-10-05T10:00:00.000Z",
+      "dataSaida": "2026-10-05T15:00:00.000Z",
+      "motivo": "Estava cansado",
+      "status": "REPROVADO",
+      "id": "fAeU7EfDqGs"
+    },
+    {
+      "idUser": "2",
+      "dataEntrada": "2026-05-05T10:00:00.000Z",
+      "dataSaida": "2026-05-05T11:00:00.000Z",
+      "motivo": "blá",
+      "status": "APROVADO",
+      "id": "qwuqDBpN5mY"
+    },
+    {
+      "idUser": "2",
+      "dataEntrada": "2026-05-15T10:00:00.000Z",
+      "dataSaida": "2026-05-15T16:00:00.000Z",
+      "motivo": "dormindo",
+      "status": "REPROVADO",
+      "id": "bw8rFtBlXzM"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

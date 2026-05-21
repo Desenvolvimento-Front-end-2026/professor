@@ -15,6 +15,27 @@ const getFuncionariosSize = async () => {
     }
 }
 
+
+const getFuncionarios = async () => {
+    try {
+        const resp = await fetch(URL)
+        const data = await resp.json()
+        return data
+    } catch (e) {
+        return []
+    }
+}
+
+const getFuncionario = async (idFunc) => {
+    try {
+        const resp = await fetch(`${URL}/${idFunc}`)
+        const data = await resp.json()
+        return data
+    } catch (e) {
+        return ""
+    }
+}
+
 const verifyLoginAndSenha = async (login, senha)=>{
 
     const resp = await fetch(URL)
@@ -32,4 +53,4 @@ const verifyLoginAndSenha = async (login, senha)=>{
     return null
 }
 
-export {getFuncionariosSize, verifyLoginAndSenha}
+export {getFuncionariosSize, verifyLoginAndSenha, getFuncionario, getFuncionarios}

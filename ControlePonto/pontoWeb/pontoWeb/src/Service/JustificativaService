@@ -1,3 +1,5 @@
+import { getFuncionario } from "./FuncionarioService"
+
 const URL = "http://localhost:3001/justificativa"
 
 
@@ -29,10 +31,15 @@ const getAllJustificativas = async (user) =>{
     try {
         const resp = await fetch(URL)
         const data = await resp.json()
+        const newData = await Promise.all(data.map( async j => {
+            const n = await getFuncionario(j.idUser)
+            return {...j, nomeUser:  n.nome }
+        }))
+        console.log(newData)
         if (user.ROLE === 'ADMIN'){
-            return data
+            return newData
         }else{
-            return data.filter( j => j.idUser === user.id)
+            return newData.filter( j => j.idUser === user.id)
         }
 
     } catch (e) {
@@ -40,4 +47,21 @@ const getAllJustificativas = async (user) =>{
     }
 }
 
-export { criarJustificativa, getAllJustificativas }
+const atualizaStatusJustificativa = async (idJustificativa, status, token) => {
+    try {
+        const resp = await fetch(`${URL}/${idJustificativa}`,{ method: 'PATCH',
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+token
+            },
+            body:JSON.stringify({
+                "status": status
+            }) 
+        })
+        return true
+    } catch (e) {
+        return false
+    }
+}
+
+export { criarJustificativa, getAllJustificativas, atualizaStatusJustificativa }

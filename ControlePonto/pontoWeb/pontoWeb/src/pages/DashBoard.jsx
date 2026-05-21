@@ -10,6 +10,7 @@ import { getFuncionariosSize } from "../Service/FuncionarioService";
 import { getCargoSize } from "../Service/CargoService";
 import { UserAuth } from "../components/Context/UserContext";
 import { totalDiasTrabalhados, totalHorasTrabalhadas } from "../Service/PontoService";
+import { getAllJustificativas } from "../Service/JustificativaService";
 
 
 const DashBoard = () => {
@@ -18,6 +19,8 @@ const DashBoard = () => {
     const [cargoSize, setCargoSize] = useState(0)
     const [totalDias, setTotalDias] = useState(0)
     const [totalHoras, setTotalHoras] = useState(0)
+    const [jusAprovadas, setJusAprovadas] = useState(0)
+    const [jusReprovadas, setJusReprovadas] = useState(0)
 
     const {userLogado, cargoUser} = UserAuth()
 
@@ -28,13 +31,21 @@ const DashBoard = () => {
             setFuncSize( v )
             const c = await getCargoSize()
             setCargoSize( c )
-            const t = await totalDiasTrabalhados(userLogado.id, userLogado.token)
-            setTotalDias( t )
-            const h = await totalHorasTrabalhadas(userLogado.id, userLogado.token)
-            setTotalHoras( h )
+            if (userLogado) {
+                const t = await totalDiasTrabalhados(userLogado.id, userLogado.token)
+                setTotalDias( t )
+                const h = await totalHorasTrabalhadas(userLogado.id, userLogado.token)
+                setTotalHoras( h )
+                
+                const justis = await getAllJustificativas(userLogado)
+                if (justis && Array.isArray(justis)) {
+                    setJusAprovadas(justis.filter(j => j.status === 'APROVADO').length)
+                    setJusReprovadas(justis.filter(j => j.status === 'REPROVADO').length)
+                }
+            }
         }
         fetchFunc()
-    })
+    }, [userLogado])
 
 
     return(
@@ -170,6 +181,36 @@ const DashBoard = () => {
                         </CardActionArea>
                     </Card>
 
+                    </Grid>
+
+                    <Grid size={4} style={{padding: '20px'}} >
+                        <Card elevation={4} sx={{ borderRadius: 3, background: 'linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%)', color: 'white' }}>
+                        <CardActionArea sx={{ height: '150px' }}>
+                            <CardContent sx={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                            <Typography variant="h5" component="div" fontWeight="bold">
+                                {jusAprovadas}
+                            </Typography>
+                            <Typography variant="h6" sx={{ opacity: 0.9 }}>
+                                Justificativas Aceitas
+                            </Typography>
+                            </CardContent>
+                        </CardActionArea>
+                    </Card>
+                    </Grid>
+
+                    <Grid size={4} style={{padding: '20px'}} >
+                        <Card elevation={4} sx={{ borderRadius: 3, background: 'linear-gradient(135deg, #d32f2f 0%, #c62828 100%)', color: 'white' }}>
+                        <CardActionArea sx={{ height: '150px' }}>
+                            <CardContent sx={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                            <Typography variant="h5" component="div" fontWeight="bold">
+                                {jusReprovadas}
+                            </Typography>
+                            <Typography variant="h6" sx={{ opacity: 0.9 }}>
+                                Justificativas Reprovadas
+                            </Typography>
+                            </CardContent>
+                        </CardActionArea>
+                    </Card>
                     </Grid>
 
 </>

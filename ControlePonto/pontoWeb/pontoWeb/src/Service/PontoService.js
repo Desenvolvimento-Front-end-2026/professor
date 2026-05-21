@@ -112,5 +112,24 @@ const totalHorasTrabalhadas = async (idUser, token) => {
 
 }
 
+const registraPontoJustificado = async (idUser, dataEntrada, dataSaida, token) => {
+    try {
+        const resp = await fetch(URL,{ method: 'POST',
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+token
+            },
+            body:JSON.stringify({
+                "idUser": idUser,
+                "dataEntrada": dataEntrada,
+                "dataSaida": dataSaida
+            }) 
+        })
+        return true
+    } catch (e) {
+        return false
+    }
+}
+
 export {registraPonto, temResgistroAberto, 
-    fechaPonto, totalDiasTrabalhados, totalHorasTrabalhadas}
+    fechaPonto, totalDiasTrabalhados, totalHorasTrabalhadas, registraPontoJustificado}
