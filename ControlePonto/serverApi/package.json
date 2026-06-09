@@ -5,7 +5,10 @@
   "main": "server.js",
   "scripts": {
     "server": "json-server --watch DB/db.json --port 3001",
+    "start": "json-server --watch DB/db.json --host 0.0.0.0 --port $PORT",
     "test": "echo \"Error: no test specified\" && exit 1"
+
+    
   },
   "author": "",
   "license": "ISC",
