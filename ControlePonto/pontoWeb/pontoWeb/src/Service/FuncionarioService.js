@@ -1,5 +1,8 @@
+const URL = `${import.meta.env.VITE_BASE_API_URL}/funcionario`
+console.log(import.meta.env.VITE_BASE_API_URL) 
+//"http://localhost:3001/funcionario"
+//"https://pontoservice.onrender.com/funcionario"
 
-const URL = "http://localhost:3001/funcionario"
 
 
 const getFuncionariosSize = async () => {

@@ -1,6 +1,7 @@
 import { getFuncionario } from "./FuncionarioService"
 
-const URL = "http://localhost:3001/justificativa"
+const URL = `${import.meta.env.VITE_BASE_API_URL}/justificativa`
+
 
 
 const criarJustificativa = async (idUser, dataEntrada,

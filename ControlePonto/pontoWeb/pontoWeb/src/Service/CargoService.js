@@ -1,5 +1,4 @@
-
-const URL = "http://localhost:3001/cargo"
+const URL = `${import.meta.env.VITE_BASE_API_URL}/cargo`
 
 
 const getCargoSize = async () => {
